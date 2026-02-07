@@ -1,0 +1,90 @@
+---
+layout: layouts/base.njk
+---
+{% set ogType = "product" %}
+{% if images and images[0] %}
+  {% set ogImage = "/images/" + (category | slug) + "/" + page.fileSlug + "/" + images[0] %}
+{% endif %}
+<article>
+  <p><a href="{{ ('/' + (category | slug) + '/') | url }}">← Back to {{ category }}</a></p>
+  <h1>{{ title }}</h1>
+  {% if price %}<p class="price strong">{{ price }}</p>{% endif %}
+  {% if description %}<p>{{ description }}</p>{% endif %}
+
+  {% if images %}
+    <section class="gallery" aria-label="Item image gallery">
+      <div class="gallery-main">
+        <img
+          src="{{ ('/images/' + (category | slug) + '/' + page.fileSlug + '/' + images[0]) | url }}"
+          alt="{{ title }} main image"
+          loading="lazy"
+        >
+      </div>
+      <div class="gallery-thumbs">
+        {% for image in images %}
+          <a
+            class="thumb"
+            href="{{ ('/images/' + (category | slug) + '/' + page.fileSlug + '/' + image) | url }}"
+            aria-label="{{ title }} image {{ loop.index }}"
+          >
+            <img src="{{ ('/images/' + (category | slug) + '/' + page.fileSlug + '/' + image) | url }}" alt="" loading="lazy">
+          </a>
+        {% endfor %}
+      </div>
+    </section>
+  {% endif %}
+
+  <div class="cta-group">
+    <a class="button" href="https://ig.me/m/knotty.manni" target="_blank" rel="noopener noreferrer">Order on Instagram</a>
+    <button
+      class="button secondary"
+      type="button"
+      data-copy-dm
+      data-title="{{ title }}"
+      data-image-url="{{ ('/images/' + (category | slug) + '/' + page.fileSlug + '/' + images[0]) | url }}"
+      data-item-url="{{ page.url | url }}"
+    >
+      Copy DM Message
+    </button>
+    <p class="copy-status" data-copy-status aria-live="polite"></p>
+  </div>
+</article>
+
+<script>
+  (() => {
+    const button = document.querySelector("[data-copy-dm]");
+    const status = document.querySelector("[data-copy-status]");
+    if (!button || !status) return;
+
+    const text = `Hi! I'm interested in "${button.dataset.title}"\nPrimary image: ${window.location.origin}${button.dataset.imageUrl}\nItem page: ${window.location.origin}${button.dataset.itemUrl}`;
+
+    const fallbackCopy = () => {
+      const temp = document.createElement("textarea");
+      temp.value = text;
+      document.body.appendChild(temp);
+      temp.select();
+      try {
+        document.execCommand("copy");
+        status.textContent = "Message copied. Paste it into your Instagram DM.";
+      } catch (error) {
+        status.textContent = "Copy failed. Please copy manually:";
+        status.insertAdjacentHTML("beforeend", `<br><code>${text}</code>`);
+      }
+      document.body.removeChild(temp);
+    };
+
+    button.addEventListener("click", async () => {
+      if (navigator.clipboard?.writeText) {
+        try {
+          await navigator.clipboard.writeText(text);
+          status.textContent = "Message copied. Paste it into your Instagram DM.";
+          return;
+        } catch (error) {
+          fallbackCopy();
+          return;
+        }
+      }
+      fallbackCopy();
+    });
+  })();
+</script>

@@ -1,0 +1,13 @@
+<article class="item-card">
+  <a href="{{ item.url | url }}" class="item-card-link">
+    <img
+      src="{{ ('/assets/generated/thumbs/' + (item.data.category | slug) + '/' + item.fileSlug + '/' + item.data.images[0]) | url }}"
+      alt="{{ item.data.title }}"
+      loading="lazy"
+    >
+    <div class="item-card-body">
+      <h3>{{ item.data.title }}</h3>
+      {% if item.data.price %}<p class="price">{{ item.data.price }}</p>{% endif %}
+    </div>
+  </a>
+</article>

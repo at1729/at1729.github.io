@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% set metaTitle = seoTitle or title or site.name %}
+    {% set metaDescription = seoDescription or description or site.description %}
+    {% if not (seoDescription or description) and title %}
+      {% set metaDescription = title + " — " + site.description %}
+    {% endif %}
+    {% set metaUrl = page.url | absoluteUrl(site.url) %}
+    {% set metaImagePath = ogImage or "" %}
+    {% set metaImageUrl = metaImagePath | absoluteUrl(site.url) %}
+
+    <title>{{ metaTitle }}</title>
+    <meta name="description" content="{{ metaDescription }}">
+    <link rel="canonical" href="{{ metaUrl }}">
+
+    <meta property="og:site_name" content="{{ site.name }}">
+    <meta property="og:title" content="{{ metaTitle }}">
+    <meta property="og:description" content="{{ metaDescription }}">
+    <meta property="og:type" content="{{ ogType or 'website' }}">
+    <meta property="og:url" content="{{ metaUrl }}">
+    {% if metaImagePath %}<meta property="og:image" content="{{ metaImageUrl }}">{% endif %}
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ metaTitle }}">
+    <meta name="twitter:description" content="{{ metaDescription }}">
+    {% if metaImagePath %}<meta name="twitter:image" content="{{ metaImageUrl }}">{% endif %}
+    <link rel="stylesheet" href="{{ '/assets/css/main.css' | url }}">
+  </head>
+  <body>
+    {% include "components/header.njk" %}
+    <main class="container main-content">
+      {{ content | safe }}
+    </main>
+    {% include "components/footer.njk" %}
+  </body>
+</html>
