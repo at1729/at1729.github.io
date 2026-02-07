@@ -4,4 +4,4 @@ eleventyExcludeFromCollections: true
 ---
 User-agent: *
 Allow: /
-Sitemap: {{ '/sitemap.xml' | absoluteUrl(site.url) }}
+Sitemap: {{ ('/sitemap.xml' | url) | absoluteUrl(site.url) }}
