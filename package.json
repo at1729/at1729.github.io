@@ -1,0 +1,19 @@
+{
+  "name": "knottymanni",
+  "version": "1.0.0",
+  "description": "Online catalog for family owned e-commerce venture",
+  "type": "commonjs",
+  "scripts": {
+    "start": "eleventy --serve",
+    "images": "node scripts/image.js",
+    "build": "node scripts/image.js && eleventy"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@11ty/eleventy": "^3.1.2",
+    "gray-matter": "^4.0.3",
+    "sharp": "^0.34.5"
+  }
+}

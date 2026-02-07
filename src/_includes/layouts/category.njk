@@ -1,0 +1,16 @@
+---
+layout: layouts/base.njk
+---
+{% set ogType = "website" %}
+{% if category.items and category.items.length and category.items[0].data.images %}
+  {% set ogImage = "/assets/generated/thumbs/" + (category.items[0].data.category | slug) + "/" + category.items[0].fileSlug + "/" + category.items[0].data.images[0] %}
+{% endif %}
+<section>
+  <h1>{{ category.name }}</h1>
+  <p>Browse all {{ category.name | lower }} items.</p>
+  <div class="item-grid">
+    {% for item in category.items %}
+      {% include "components/item-card.njk" %}
+    {% endfor %}
+  </div>
+</section>

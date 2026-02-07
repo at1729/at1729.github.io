@@ -1,0 +1,49 @@
+---
+layout: layouts/base.njk
+---
+{% set ogType = "website" %}
+{% set ogImage = "" %}
+{% for item in collections.items %}
+  {% if ogImage == "" and item.data.featured and item.data.images %}
+    {% set ogImage = "/assets/generated/thumbs/" + (item.data.category | slug) + "/" + item.fileSlug + "/" + item.data.images[0] %}
+  {% endif %}
+{% endfor %}
+<section class="hero hero-split">
+  <div class="hero-copy">
+    <p class="eyebrow">Crafted with Love</p>
+    <h1>{{ title }}</h1>
+    <p>{{ description }}</p>
+  </div>
+  <div
+    class="hero-art hero-art--bg"
+    style="background-image: url('{{ '/assets/images/catalog-hero.jpg' | url }}');"
+    role="img"
+    aria-label="KnottyManni catalog showcase"
+  ></div>
+</section>
+
+<section class="section">
+  <div class="section-title">
+    <h2>Knotty Favorites</h2>
+    <p>Our most popular pieces.</p>
+  </div>
+  <div class="item-grid">
+    {% for item in collections.items %}
+      {% if item.data.featured %}
+        {% include "components/item-card.njk" %}
+      {% endif %}
+    {% endfor %}
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-title">
+    <h2>Shop by Category</h2>
+    <p>Find your next favorite in every collection.</p>
+  </div>
+  <div class="category-links">
+    {% for category in collections.categories %}
+      <a class="chip" href="{{ ('/' + category.slug + '/') | url }}">{{ category.name }} ({{ category.items | length }})</a>
+    {% endfor %}
+  </div>
+</section>

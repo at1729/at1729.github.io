@@ -1,0 +1,31 @@
+<header class="site-header">
+  <div class="container nav-wrap">
+    <a class="brand" href="{{ '/' | url }}">
+      <img
+        class="logo"
+        src="{{ '/assets/images/logo.svg' | url }}"
+        alt="KnottyManni logo"
+        loading="lazy"
+        onerror="this.onerror=null;this.src='{{ '/assets/images/logo.png' | url }}';"
+      >
+      <span class="brand-name">KnottyManni</span>
+    </a>
+    <nav aria-label="Main navigation">
+      <ul class="nav-list">
+        <li><a href="{{ '/' | url }}">Home</a></li>
+        <li class="nav-dropdown">
+          <details>
+            <summary>Categories</summary>
+            <ul class="nav-sublist" aria-label="Categories">
+              {% for category in collections.categories %}
+                <li><a href="{{ ('/' + category.slug + '/') | url }}">{{ category.name }}</a></li>
+              {% endfor %}
+            </ul>
+          </details>
+        </li>
+        <li><a href="{{ '/contact/' | url }}">Contact / How to Order</a></li>
+        <li><a href="{{ '/about/' | url }}">About</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>

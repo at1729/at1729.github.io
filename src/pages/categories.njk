@@ -1,0 +1,11 @@
+---
+layout: layouts/category.njk
+pagination:
+  data: collections.categories
+  size: 1
+  alias: category
+permalink: "/{{ category.slug }}/"
+title: "{{ category.name }}"
+seoTitle: "{{ category.name }} | KnottyManni"
+seoDescription: "Browse {{ category.name }} at KnottyManni."
+---
