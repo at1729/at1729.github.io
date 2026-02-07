@@ -8,9 +8,9 @@
     {% if not (seoDescription or description) and title %}
       {% set metaDescription = title + " — " + site.description %}
     {% endif %}
-    {% set metaUrl = page.url | absoluteUrl(site.url) %}
+    {% set metaUrl = (page.url | url) | absoluteUrl(site.url) %}
     {% set metaImagePath = ogImage or "" %}
-    {% set metaImageUrl = metaImagePath | absoluteUrl(site.url) %}
+    {% set metaImageUrl = (metaImagePath | url) | absoluteUrl(site.url) %}
 
     <title>{{ metaTitle }}</title>
     <meta name="description" content="{{ metaDescription }}">
